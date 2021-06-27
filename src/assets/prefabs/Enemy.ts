@@ -10,13 +10,13 @@ interface IPosition {
 export default class Enemy {
   static wave = 1
 
-  private currentSprite
+  private currentSpriteIndex
   private dx
   private dy
   private position: IPosition
 
   constructor() {
-    this.currentSprite = 0
+    this.currentSpriteIndex = 0
     this.dx = getRandom(-2, 2)
     this.dy = getRandom(1, 3)
 
@@ -26,7 +26,7 @@ export default class Enemy {
     }
 
     setInterval(() => {
-      this.currentSprite = ++this.currentSprite % 2 // Find the modulo of the next sprite index
+      this.currentSpriteIndex = ++this.currentSpriteIndex % 2 // Find the modulo of the next sprite index
     }, 300)
   }
 
@@ -43,14 +43,14 @@ export default class Enemy {
   }
 
   set setSprite(nextSprite: typeof sprite1) {
-    this.currentSprite = nextSprite
+    this.currentSpriteIndex = nextSprite
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     const sprites = [sprite1, sprite2]
 
     const image = new Image()
-    image.src = sprites[this.currentSprite]
+    image.src = sprites[this.currentSpriteIndex]
 
     ctx.drawImage(image, this.position.x, this.position.y)
   }
